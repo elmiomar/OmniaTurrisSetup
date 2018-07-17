@@ -19,6 +19,8 @@ If you want to reset your switch to factory settings, use mode 3. If the switch 
 In mode 4, [download the OS image](https://repo.turris.cz/omnia/medkit/omnia-medkit-latest.tar.gz). Save the file omnia-medkit-latest.tar.gz to USB flash to the root directory and put the USB flash to the front panel USB connector of the Turris Omnia router. The Turris Omnia router supports following filesystems: ext2/3/4, BtrFS, XFS and FAT. After that use reset button to select mode 4 (4 LEDs)
 Once the process has completed writing the OS, remove the USB flash and access the switch on IP address 192.168.1.1.
 
+(source [here](https://doc.turris.cz/doc/en/howto/omnia_factory_reset).)
+
 If you enter the switch from mode 4 or for the first time, you will be prompted to a wizard that will help you configure the switch. There are 10 or 11 steps and are very clear. There should be no issue with this step.
 
 Configuration I used:
@@ -34,8 +36,9 @@ Configuration I used:
 - **OpenVSwitch**: find and install all openvswitch packages.
 
 ## Experiment environment
-
-
+<p align="center"> 
+<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/omnia-pis.jpg">
+</p>
 
 ### Wired
 First thing is to test using wired connections. I have 2 Raspberry Pis that I need to connect to the switch.
@@ -43,3 +46,5 @@ First thing is to test using wired connections. I have 2 Raspberry Pis that I ne
 >In this part the wireless APs are disabled.
 
 ### Wireless
+
+Enable at least one WLAN.
