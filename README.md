@@ -1,6 +1,19 @@
 # Omnia Turris Switch Setup
 These are the steps for the Omnia Turris switch setup, used in the SDN/MUD project.
 
+## Omnia Turris Switch 
+The front panel of the turris switch that I have looks like:
+<p align="center"> 
+<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/turris-front.jpg">
+</p>
+
+The back panel of the turris switch that I have looks like:
+<p align="center"> 
+<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/turris-back.jpg">
+</p>
+
+
+
 
 ## Download and install latest OS imagne
 The Turris Omnia router has a reset button on its back panel. When you press and immediately release the reset button the router resets and boots into ordinary Turris.
