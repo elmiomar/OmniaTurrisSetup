@@ -4,12 +4,12 @@ These are the steps for the Omnia Turris switch setup, used in the SDN/MUD proje
 ## Omnia Turris Switch 
 The front panel of the turris switch that I have looks like:
 <p align="center"> 
-<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/turris-front.jpg">
+<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/turris-front.jpg" height="75%" width="75%">
 </p>
 
 The back panel of the turris switch that I have looks like:
 <p align="center"> 
-<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/turris-back.jpg">
+<img src="https://github.com/elmiomar/OmniaTurrisSetup/blob/master/img/turris-back.jpg" height="75%" width="75%">
 </p>
 
 
