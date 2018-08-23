@@ -19,11 +19,11 @@ We suppose we have 2 RPis, one acting as a server and the other one as a client.
 
 The TCP test pushes as much traffic as possible between the two RPis, trying to saturate the bandwidth.
 
-To start a TCP server, log into one of the RPis, open a terminal, and run the command:
+- To start a TCP server, log into one of the RPis, open a terminal, and run the command:
 
 `iperf -s`
 
-To start the client, log into the other RPi, open a terminal, and run the command:
+- To start the client, log into the other RPi, open a terminal, and run the command:
 
 `iperf -c <SERVER_IP>`
 
@@ -31,14 +31,29 @@ A report will be generated at the end.
 
 #### UDP
 
-With you UDP we can control the amount of traffic that is pushed from the client to the server.
+With UDP we can control the amount of traffic that is pushed from the client to the server.
 
-Server side:
+- Server side:
 
 `iperf -s -u`
 
-Client side:
+- Client side:
 
 `iperf -c <SERVER_IP> -u [OPTIONS]`
 
 > **Note**: it is preferable to run the server first then the client. 
+
+#### Destination port
+
+To target a destination port, specify option -p (or --port). For example:
+
+- Server side: 
+
+`iperf -s -p PORT_NUMBER`
+
+- Client side: 
+
+`iperf -c <SERVER_IP> -p PORT_NUMBER`
+
+
+
