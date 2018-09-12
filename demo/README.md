@@ -22,9 +22,9 @@ The devices listed above were connected following the topology shown in the next
 ### Topology
 The topology that was used in this demo is as follows:
 
-<div style="text-align:center">
-  <img src ="/demo/images/demo.jpg" alt="demo.png"/>
-</div>
+<p align="center">
+  <img src ="/demo/images/demo.jpg" alt="demo.jpg" height="auto" width="85%"/>
+</p>
 
 > The HDMI switcher and monitors are to makes the demoer's life easier, by avoiding switching the monitor, keyboard and mouse between every PI. 
 
@@ -63,7 +63,79 @@ Install and run DNS server goes here.
 
 #### Configure NAT
 
-How to configure NAT goes here.
+NAT is needed to allow our internal private network (10.0.41.0/24) to connect to the public network (203.0.113.0/24). We decided to put the NAT functionality on the **services** RPi. Following is the complete configuration.
+
+<p align="center">
+  <img src ="/demo/images/nat.jpg" alt="nat.jpg" height="50%" width="50%"/>
+</p>
+
+First step is to enable IPv4 forwarding. Most linux distros come with IPv4 forwarding disabled. In our case, since we need to route traffic from our private network to the public network, we need to enable it on the RPi.
+
+- enable IP forwarding
+
+Let's first check if IPv4 is enabled:
+
+```
+# sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 0
+```
+
+> 0: disabled
+> 1: enabled
+
+There are different ways to configure set this parameter to 1. The permanent way to do this is:
+
+```
+# nano /etc/sysctl.conf
+```
+
+Look for `net.ipv4.ip_forward=0` and set it to 1.
+
+- configure iptables
+
+Most Raspberry PIs come with empty iptables and ACCEPT policy by default. Just in case we can delete all rules using the command:
+
+```
+# iptables -F
+```
+
+We are trying to bridge both interfaces eth0 (10.0.41.254) and eth1 (203.0.113.1) on the **services** RPi. We start by setting up MASQUERADING (i.e. replacing the sender's address by the router's address):
+
+```
+# iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+```
+
+Then, we need to forward incoming packets (from eth1 to eth0) that have connections ESTABLISHED and RELATED:
+
+```
+# iptables -A FORWARD -i eth1 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+```
+
+Then, forward all outgoing packets (from eth0 to eth1):
+
+```
+# iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
+```
+
+Save the firewall rules:
+
+```
+# sh -c "iptables-save > /etc/iptables.ipv4.nat"
+```
+
+And to apply them from boot, add the following line at the end of `/etc/network/interfaces`:
+
+```
+# up iptables-restore < /etc/iptables.ipv4.nat
+```
+
+Configuration should be applied by now. You can check it using:
+
+```
+# iptables -L
+```
+
+And then run tests to check if devices from 10.0.41.0/24 can access devices on 203.0.113.0/24.
 
 #### Web Server
 
@@ -80,7 +152,7 @@ import BaseHTTPServer, SimpleHTTPServer
 import ssl
 
 httpd = BaseHTTPServer.HTTPServer(('0.0.0.0', 443), SimpleHTTPServer.SimpleHTTPRequestHandler)
-httpd.socket = ssl.wrap_socket (httpd.socket, certfile='./server.pem', server_side=True)
+httpd.socket = ssl.wrap_socket (httpd.socket, certfile='./cert.pem', server_side=True)
 httpd.serve_forever()
 ```
 Copy and paste above code in a file and save it, e.g. https-server.py
