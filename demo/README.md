@@ -55,7 +55,52 @@ To connect both network we configured NAT on the services RPI.
 
 #### DHCP
 
-Install and run DHCP server goes here.
+DHCP is required for our demo. The only reason we need it to be able to communication the MUD URL to the controller.
+In fact, as explained in the [ietf-draft](https://datatracker.ietf.org/doc/draft-ietf-opsawg-mud/), there are different ways for a MUD device to communicate its URL to the controller. One way is embedding that URL in a DHCP request. Our current implementation supports the DHCP method and 2 others.
+
+To set up a DHCP server in ourinternal network, we used [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html).
+
+```
+# apt-get update
+# apt-get install dnsmasq
+```
+
+After dnsmasq has been installed, it an be configured by editing the file `/etc/dnsmasq.conf`. The file has detailed comments with examples and is self-explainatory.
+
+Open file:
+
+```
+# nano /etc/dnsmasq.conf 
+```
+
+Since we have a finite set of RPIs and we want to map their names to their IP addresses (e.g. RPI_1 @ 10.0.41.101, RPI_2 @ 10.0.41.102, and so on..), so we opted for static DHCP leases configuration.
+
+Add static leases:
+```
+# generic format
+# dhcp-host=<mac address>,<ip address>
+# rpi_1 (mud device)
+dhcp-host=b8:27:eb:68:30:2d,10.0.41.101
+# rpi_2
+dhcp-host=todo,10.0.41.102
+# rpi_3 (non-mud device)
+dhcp-host=b8:27:eb:96:84:44,10.0.41.103
+# rpi_4
+dhcp-host=todo,10.0.41.104
+```
+
+A DHCP range, the gateway and the dns server options can be configured as follows:
+
+```
+# generic format
+# dhcp-range=<start-ip>,<end-ip>,<netmask>,<lease>
+# range
+dhcp-range=10.0.41.100,10.0.41.150,255.255.255.0,48h
+# gateway
+dhcp-option=3,10.0.41.254
+# dns server
+dhcp-option=6,10.0.41.254
+```
 
 #### DNS
 
