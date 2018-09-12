@@ -79,7 +79,7 @@ It will generate a CA certificate that will be used by the web server.
 import BaseHTTPServer, SimpleHTTPServer
 import ssl
 
-httpd = BaseHTTPServer.HTTPServer(('0.0.0.0', 4443), SimpleHTTPServer.SimpleHTTPRequestHandler)
+httpd = BaseHTTPServer.HTTPServer(('0.0.0.0', 443), SimpleHTTPServer.SimpleHTTPRequestHandler)
 httpd.socket = ssl.wrap_socket (httpd.socket, certfile='./server.pem', server_side=True)
 httpd.serve_forever()
 ```
@@ -160,12 +160,12 @@ TBD
 
 ## Test Scenarios
 
-Write the different test scenarions used
+Write the different test scenarios used.
 
 ## Troublshooting
 
 > Murphy's Law says: "Anything that can go wrong, will go wrong."
 
-What to do in case something is going wrong.
+What to do in case something is going wrong? STAY CALM!
 
-
+_Just kidding_, but yes, in any case stay calm.
