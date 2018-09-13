@@ -42,7 +42,11 @@ In this section, we describe the different configurations we had to do and the d
 
 ### Network Configuration
 
-Network configuration goes here.
+As you can notice from the topology figure above, we have 2 internal networks (management - red, data - gray), and a public network - blue. The Turris Omnia router is configured to connect to both internal networks; it is connected to the management network (10.0.40.0/24) through its WAN interface and to the data network (10.0.41.0/24) through one of its LAN connectors. The configuration of this device is a bit complex, we'll cover in a further section.
+
+In total, we have 5 RPis (3 acting as IoT devices, 1 for deploying required services, and 1 for deploying a remote web server for tests).
+
+The 3 RPis are connected to the Turris Omnia router and they live on the data network. The services RPi is connected to two networks (eth0:data, eth1:public). It is hosting our DHCP, DNS, and NAT services. The remaining RPi lives on the public network.
 
 ### Services Configuration (DHCP, DNS, NAT, Web Server)
 
