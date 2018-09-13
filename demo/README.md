@@ -104,9 +104,28 @@ dhcp-option=6,10.0.41.254
 
 #### DNS
 
-Install and run DNS server goes here.
+The goal here is to set up a simple DNS server. Here again, we will use dnsmasq. At this point, we don't have to do anything since we already installed dnsmasq. The DNS server that is running on our services RPi is, by default, configured to forward all requests to our system's default DNS settings, that are stored in `/etc/resolv.conf`. 
 
-#### Configure NAT
+We want to add the web server domain name (nist.local), so that the DNS server can resolve it for its clients. To do that, we need to go to `/etc/hosts` and add them.
+
+```
+# nano /etc/hosts
+...
+203.0.113.2    nist.local
+...
+```
+
+For further configuration, you can check the `/etc/dnsmasq.conf` file. By default, dnsmasq's DNS server listens on all interfaces. If we want for example to make it listen on `eth0` only, we should go to the file and add it.
+
+
+```
+# nano /etc/dnsmasq.conf
+...
+interface=eth0
+...
+```
+
+#### NAT
 
 NAT is needed to allow our internal private network (10.0.41.0/24) to connect to the public network (203.0.113.0/24). We decided to put the NAT functionality on the **services** RPi. Following is the complete configuration.
 
