@@ -281,17 +281,28 @@ To create OVS ports, we need to attach the Turris Omnia router ports to the OVS 
 
 For more information on how to configure the router ports, check the [network config file]().
 
-#### The Complete Demo Configuration
+#### OVS Complete Demo Configuration
 
 Put full configuration here.
 
 ### Different Files and Scripts
 
 #### Network
-TBD
 
+- Turris Omnia
+  - ...
+- Raspberry PIs
+  - ...
+- ODL Server
+  - ...
+- Services RPIs
+  - ...
+- Web Server RPI
+  - ...
+  
+  
 #### Wireless
-TBD
+For future consideration.
 
 
 ## Test Scenarios
