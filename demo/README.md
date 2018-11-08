@@ -182,7 +182,7 @@ Then, we need to forward incoming packets (from eth1 to eth0) that have connecti
 Then, forward all outgoing packets (from eth0 to eth1):
 
 ```
-# iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
+# iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 ```
 
 Save the firewall rules:
